@@ -17,7 +17,7 @@ aoi <- aoi_data[[1]] # AOI as sf object
 set_aoi() # here the point of interest is set 
 view_aoi() # view AOI in viewer, which will look like this
 
-login_USGS(username="t_nier01") # input of username 
+login_USGS(username="...") # input of username 
 set_archive("...") # set archive link 
 
 records <- getLandsat_query(time_range = c("2019-09-20", "2019-09-22"), 
