@@ -1,3 +1,5 @@
+# classification based on: https://github.com/HannaMeyer/Geostat2018/tree/master/practice
+
 ########  Loading different libarys  ######## 
 library(raster)
 library(caret)
