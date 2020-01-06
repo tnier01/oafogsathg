@@ -35,8 +35,9 @@ TODO
 - coordinate system: WGS 84 / UTM zone 33N EPSG: 32633
 - then create new field 
 - name: class -> Add to field list 
-- Ok 
-- 10 Symbol second row from left "add polygon object"
+- click "Ok" 
+- 8th Symbol second row from left "switch edit-mode"
+- 10th Symbol second row from left "add polygon object"
 - draw a polygon for an area which looks similar 
 - with right click define as class with id 1 (ascending for further areas) and assign corresponding class name e.g. forest
 * use at least the following six classes: "forest", "grassland", "ice", "lake", "snow", "stone"
