@@ -26,6 +26,12 @@
 - finally save (first row, third point from left) then files are updated at the corresponding location 
 - now use the appropriate .shp-file in the "classification.R" for the variable "training"
 
+## used data 
+- LC08_L1TP_192027_20190921_20190926_01_T1
+- 27.08.2019
+- 27.08.2016
+- 04.09.2013
+
 ## Authors
 * nier
 * baec

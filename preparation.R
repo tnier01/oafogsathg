@@ -1,8 +1,9 @@
 ########  Loading different libarys  ######## 
 library(readr)
+library(raster)
 
 # setting the path were all files were saved 
-setwd("...")
+#setwd("...")
 
 ######## functions ######## 
 #1# function for cropping an image with a given extent 
@@ -31,10 +32,10 @@ cropping <- function(image, coordinateSystem) {
 # - general paper source (https://cran.r-project.org/web/packages/satellite/satellite.pdf)
 
 # preperation of the elevation model 
-dhmAustria <- raster("data/DEM_geschnitten.tif")
-extent2 <- as(extent(11, 12, 46.5, 47.5), 'SpatialPolygons')
-crs(extent2) <- crs(dhmAustria)
-dhmAustriaCrop <- crop(dhmAustria, extent2)
+#dhmAustria <- raster("data/DEM_geschnitten.tif")
+#extent2 <- as(extent(11, 12, 46.5, 47.5), 'SpatialPolygons')
+#crs(extent2) <- crs(dhmAustria)
+#dhmAustriaCrop <- crop(dhmAustria, extent2)
 
 subtract_shadow <- function(band, dhmCropped, scene) {
   
@@ -70,13 +71,16 @@ band_stack <- function(scene) {
   band4 <- raster(paste("data/",scene,"/",scene,"_B4.tif", sep = ""))
   band5 <- raster(paste("data/",scene,"/",scene,"_B5.tif", sep = ""))
   band10 <- raster(paste("data/",scene,"/",scene,"_B10.tif", sep = ""))
+
   
   # bringing the channels on the same projection 
-  crs(band2) <- "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
-  crs(band3) <- "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
-  crs(band4) <- "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
-  crs(band5) <- "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
-  crs(band10) <- "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+  if(substr(crs(band2, asText=TRUE), 17, 18) != "33") {
+    band2 <- projectRaster(band2, crs="+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+    band3 <- projectRaster(band3, crs="+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+    band4 <- projectRaster(band4, crs="+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+    band5 <- projectRaster(band5, crs="+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+    band10 <- projectRaster(band10, crs="+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  }
   
   # subtracting the shadow and cropping 
   # at the moment the function "subtract_shadow" is here not used because we are not quite sure if 
@@ -93,15 +97,18 @@ band_stack <- function(scene) {
   # bringing the different bands in one stack together 
   landsat_stack <- stack(c_band2, c_band3, c_band4, c_band5, ndvi, c_band10)
   
+  layerNames <- c("band2", "band3", "band4", "band5", "NDVI", "band10")
+  
   # write the final .grd file 
   rstackCropGrid <- writeRaster(landsat_stack, filename=paste("data/",scene,"/rstackCropGrid"
                                                               #,substr(scene,17,21)
                                                               ,sep = ""), format="raster", overwrite=TRUE) # save the corrected satellite image as tif
+  #names(rstackCropGrid) <- layerNames
   
   return(rstackCropGrid)
 }
 
 # final result: 
-grid <- band_stack("LC08_L1TP_192027_20130904_20170502_01_T1")
+#grid <- band_stack("LC08_L1TP_192027_20190921_20190926_01_T1")
 
-spplot(grid)
+#spplot(grid)
