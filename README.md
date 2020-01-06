@@ -25,6 +25,11 @@ TODO
 ## create training sites in QGIS (click instructions)
 - used QGIS3.8
 - drag "rstackCropGrid.grd"-file which you should find in your landsat data directory into a new project in QGIS 
+- open Layerproperties
+- use following bands:
+  - red: band 3
+  - green: band 2
+  - blue: band 1
 - third symbol second row from left "new shapefile layer"
 - specify name, including path on your PC
 * the name must be as follows: training_sites
