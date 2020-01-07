@@ -1,6 +1,7 @@
 ########  Loading different libarys  ######## 
 library(readr)
 library(raster)
+library(satellite)
 
 # setting the path were all files were saved 
 #setwd("...")
@@ -32,10 +33,10 @@ cropping <- function(image, coordinateSystem) {
 # - general paper source (https://cran.r-project.org/web/packages/satellite/satellite.pdf)
 
 # preperation of the elevation model 
-#dhmAustria <- raster("data/DEM_geschnitten.tif")
-#extent2 <- as(extent(11, 12, 46.5, 47.5), 'SpatialPolygons')
-#crs(extent2) <- crs(dhmAustria)
-#dhmAustriaCrop <- crop(dhmAustria, extent2)
+dhmAustria <- raster("data/DEM_geschnitten.tif")
+extent2 <- as(extent(11, 12, 46.5, 47.5), 'SpatialPolygons')
+crs(extent2) <- crs(dhmAustria)
+dhmAustriaCrop <- crop(dhmAustria, extent2)
 
 subtract_shadow <- function(band, dhmCropped, scene) {
   
@@ -75,11 +76,11 @@ band_stack <- function(scene) {
   
   # bringing the channels on the same projection 
   if(substr(crs(band2, asText=TRUE), 17, 18) != "33") {
-    band2 <- projectRaster(band2, crs="+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-    band3 <- projectRaster(band3, crs="+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-    band4 <- projectRaster(band4, crs="+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-    band5 <- projectRaster(band5, crs="+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-    band10 <- projectRaster(band10, crs="+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+    band2 <- projectRaster(band2, crs="+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0")
+    band3 <- projectRaster(band3, crs="+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0")
+    band4 <- projectRaster(band4, crs="+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0")
+    band5 <- projectRaster(band5, crs="+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0")
+    band10 <- projectRaster(band10, crs="+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0")
   }
   
   # subtracting the shadow and cropping 
@@ -90,6 +91,12 @@ band_stack <- function(scene) {
   c_band4 <- (cropping(band4, "utm33"))
   c_band5 <- (cropping(band5, "utm33"))
   c_band10 <- (cropping(band10, "utm33"))
+  
+#  c_band2 <- subtract_shadow((cropping(band2, "utm33")), dhmAustriaCrop, scene)
+#  c_band3 <- subtract_shadow((cropping(band3, "utm33")), dhmAustriaCrop, scene)
+#  c_band4 <- subtract_shadow((cropping(band4, "utm33")), dhmAustriaCrop, scene)
+#  c_band5 <- subtract_shadow((cropping(band5, "utm33")), dhmAustriaCrop, scene)
+#  c_band10 <- subtract_shadow((cropping(band10, "utm33")), dhmAustriaCrop, scene)
   
   # calculating the ndvi 
   ndvi <- ((c_band5-c_band4)/(c_band5+c_band4))
@@ -109,6 +116,6 @@ band_stack <- function(scene) {
 }
 
 # final result: 
-#grid <- band_stack("LC08_L1TP_192027_20190921_20190926_01_T1")
+# grid <- band_stack("LC08_L1TP_192027_20130904_20170502_01_T1")
 
 #spplot(grid)

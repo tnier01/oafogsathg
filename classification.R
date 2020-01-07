@@ -12,6 +12,7 @@ data_folder <- ("LC08_L1TP_193027_20190827_20190903_01_T1")
 
 landsat <- band_stack(data_folder)
 
+# landsat <- stack(paste(getwd(),"/data/",data_folder,"/rstackCropGrid.gri",sep=""))
 
 ###############################
 ###! create training sites !###
@@ -30,7 +31,9 @@ classify <- function(scene) {
   ## landsat data prepared in preparation.R
   landsat <- landsat 
   ## shapefile of the training site prepared in QGIS
-  training <- read_sf(paste(scene,"data/training_sites.shp",sep = "")) 
+  training <- read_sf(paste("data/",scene,"/training_sites.shp",sep = "")) 
+  
+  # viewRGB(landsat, r = 3, g = 2, b = 1, map.types = "Esri.WorldImagery", maxpixels = 100000)+mapview(training)
   
   # extract raster information 
   ## dataframe which contains the landsat data for each pixel overlayed by the polygons of the training site 
@@ -47,12 +50,12 @@ classify <- function(scene) {
   testDat <- extr[-trainids,]
   
   # Visualization of relationships
-  boxplot(trainDat$LC08_L1TP_192027_20190921_20190926_01_T1_B10~trainDat$class,las=2)
+  #boxplot(trainDat$LC08_L1TP_192027_20130904_20170502_01_T1_B10~trainDat$class,las=2)
 
-  featurePlot(x = trainDat[, c(paste(scene,"_B2",sep=""),paste(scene,"_B3",sep=""),paste(scene,"_B4",sep=""),paste(scene,"_B5",sep=""),paste(scene,"_B10",sep=""),"layer")], 
-              y = factor(trainDat$class), 
-              plot = "pairs",
-              auto.key = list(columns = 4))
+  #featurePlot(x = trainDat[, c(paste(scene,"_B2",sep=""),paste(scene,"_B3",sep=""),paste(scene,"_B4",sep=""),paste(scene,"_B5",sep=""),paste(scene,"_B10",sep=""),"layer")], 
+  #            y = factor(trainDat$class), 
+  #            plot = "pairs",
+  #            auto.key = list(columns = 4))
   
   # Model training 
   ## define predictors (all data from the landsat data - layer is here the NDVI)
@@ -76,15 +79,18 @@ classify <- function(scene) {
   pred_valid
   #table(testDat$class,pred_valid)
   
-  writeRaster(prediction, filename = paste("data/",scene,"/classified",sep = ""), format = "GTiff", options=c("COMPRESS=NONE", "TFW=YES"), overwrite = TRUE)
+  classified <- writeRaster(prediction, filename = paste("data/",scene,"/classified",sep = ""), format = "GTiff", options=c("COMPRESS=NONE", "TFW=YES"), overwrite = TRUE)
+  
+  return(classified)
 }
 
 ######## result ######## 
 # final result of classification 
 classified <- classify(data_folder)
 
-spplot(classified,col.regions=c("black","darkgreen","green","gray",
-                                "blue","white"))     #,maxpixels=1000000)
+# classified <- stack(paste(getwd(),"/data/",data_folder,"/classified.tif",sep=""))
+
+spplot(classified,col.regions=c("black","darkgreen","green","gray", "blue","white"), maxpixels=1000000)
 
 # pixels used for different classes 
 pixels <- freq(classified)
