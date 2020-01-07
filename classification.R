@@ -8,7 +8,8 @@ library(sf)
 
 source(paste(getwd(),"/preparation.R",sep=""))
 
-data_folder <- ("LC08_L1TP_193027_20190827_20190903_01_T1")
+# customize the name of the landsat data folder e.g. LC08_L1TP_193027_20190827_20190903_01_T1
+data_folder <- ("#TODO")
 
 landsat <- band_stack(data_folder)
 
