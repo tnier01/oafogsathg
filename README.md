@@ -11,15 +11,15 @@
 2. create in the oafogsathg-directory a new directory called "data"
 3. After unzipping the downloaded landsat data, save the corresponding folder in the data directory 
 * do not change the folder name of the downloaded landsat data!!!
-4. for each downloaded landsat dataset you have to run the "classification.R"-script individually 
+4. for each downloaded landsat dataset you have to run the "analysis.R"-script individually 
 * corresponding you have to change the name of the current landsat data folder in line 12, a further hint is in the script 
 5. Check at the beginning of all scripts, if all librarys needed are installed, if not install them 
-6. start the classification.R script, but interrupt when you see the following note 
+6. start the analysis.R script, but interrupt when you see the following note 
 *###############################
 ###! create training sites !###
 ###############################
 * now it is time to create training sites in QGIS (see further instructions below)
-7. Excecute the final lines in the "classification.R"-file
+7. Excecute the final lines in the "analysis.R"-file (area_calculation)
 TODO
 
 ## create training sites in QGIS (click instructions)
@@ -47,7 +47,7 @@ TODO
 - with right click define as class with id 1 (ascending for further areas) and assign corresponding class name e.g. forest
 * use at least the following six classes: "forest", "grassland", "ice", "lake", "snow", "stone"
 - finally save (first row, third point from left) then files are updated at the corresponding location 
-- now proceed the process in the "classification.R"-file 
+- now proceed the process in the "analysis.R"-file 
 
 ## authors
 * nier
