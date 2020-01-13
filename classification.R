@@ -7,12 +7,12 @@ library(mapview)
 library(sf)
 library(rgdal)
 
-source(paste(getwd(),"/preparation.R",sep=""))
+# source(paste(getwd(),"/preparation.R",sep=""))
 
 # customize the name of the landsat data folder e.g. LC08_L1TP_193027_20190827_20190903_01_T1
-data_folder <- ("LC08_L1TP_192027_20160827_20170321_01_T1")
+# data_folder <- ("LC08_L1TP_192027_20160827_20170321_01_T1")
 
-landsat <- band_stack(data_folder)
+# landsat <- band_stack(data_folder)
 
 # landsat <- stack(paste(getwd(),"/data/",data_folder,"/rstackCropGrid.gri",sep=""))
 
@@ -27,7 +27,7 @@ landsat <- band_stack(data_folder)
 
 ######## functions ######## 
 #1# function for classifing  
-classify <- function(scene) {
+classify <- function(scene, landsat) {
   
   # loading the data 
   ## landsat data prepared in preparation.R
@@ -86,24 +86,29 @@ classify <- function(scene) {
   return(classified)
 }
 
-######## result ######## 
-# final result of classification 
-classified <- classify(data_folder)
+area_calculation <- function(data_folder, landsat) {
+  # classification calculation 
+  classified <- classify(data_folder, landsat)
 
-# crop the classified raster by a shapefile to focus on the Hintertux Glacier 
-HintertuxGlacierExtent <- readOGR("data/HintertuxGlacierExtent.shp")
+  # crop the classified raster by a shapefile to focus on the Hintertux Glacier 
+  HintertuxGlacierExtent <- readOGR("data/HintertuxGlacierExtent.shp")
+  
+  classified_crop <- crop(classified, HintertuxGlacierExtent)
+  
+  spplot(classified_crop,col.regions=c("black","darkgreen","green","gray", "blue","white"), maxpixels=1000000)
+  
+  # pixels used for different classes 
+  classified_crop@data@attributes
+  pixels <- freq(classified_crop)
+  
+  # area in square meters which is signed concerning the class ice and snow (1 pixel -> 30m*30m)
+  ice_area <- as.numeric(pixels[3,2] + pixels[5,2])*900
+  
+  return(ice_area)
+}
 
-classified_crop <- crop(classified, HintertuxGlacierExtent)
+# HintertuxGlacierArea <- area_calculation(data_folder, landsat)
 
-spplot(classified_crop,col.regions=c("black","darkgreen","green","gray", "blue","white"), maxpixels=1000000)
-
-# pixels used for different classes 
-classified_crop@data@attributes
-pixels <- freq(classified_crop)
-
-# area in square meters which is signed concerning the class ice and snow (1 pixel -> 30m*30m)
-ice_area <- as.numeric(pixels[3,2] + pixels[5,2])*900
-ice_area
 
 
 
