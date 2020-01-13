@@ -62,7 +62,14 @@ classify <- function(scene, landsat) {
   # Model training 
   ## define predictors (all data from the landsat data - layer is here the NDVI)
   ## response variable is the "Class" column of the data frame
-  predictors <- c(paste(scene,"_B2",sep=""),paste(scene,"_B3",sep=""),paste(scene,"_B4",sep=""),paste(scene,"_B5",sep=""),paste(scene,"_B10",sep=""),"layer")
+  
+  
+  # predictors with shadow
+  # predictors <- c(paste(scene,"_B2",sep=""),paste(scene,"_B3",sep=""),paste(scene,"_B4",sep=""),paste(scene,"_B5",sep=""),paste(scene,"_B10",sep=""),"layer")
+  
+  # predictors without shadow
+  predictors <- c("layer.1", "layer.2", "layer.3", "layer.4", "layer.5", "layer.6")
+  
   response <- "class"
   
   # train the model 

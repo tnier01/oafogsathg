@@ -80,17 +80,17 @@ band_stack <- function(scene) {
   # subtracting the shadow and cropping 
   # at the moment the function "subtract_shadow" is here not used because we are not quite sure if 
   # the subtracting of the shadow is useful 
-  c_band2 <- (cropping(band2, "utm33"))
-  c_band3 <- (cropping(band3, "utm33"))
-  c_band4 <- (cropping(band4, "utm33"))
-  c_band5 <- (cropping(band5, "utm33"))
-  c_band10 <- (cropping(band10, "utm33"))
+#  c_band2 <- (cropping(band2, "utm33"))
+#  c_band3 <- (cropping(band3, "utm33"))
+#  c_band4 <- (cropping(band4, "utm33"))
+#  c_band5 <- (cropping(band5, "utm33"))
+#  c_band10 <- (cropping(band10, "utm33"))
   
-  #c_band2 <- subtract_shadow((cropping(band2, "utm33")), dhmAustria, scene)
-  #c_band3 <- subtract_shadow((cropping(band3, "utm33")), dhmAustria, scene)
-  #c_band4 <- subtract_shadow((cropping(band4, "utm33")), dhmAustria, scene)
-  #c_band5 <- subtract_shadow((cropping(band5, "utm33")), dhmAustria, scene)
-  #c_band10 <- subtract_shadow((cropping(band10, "utm33")), dhmAustria, scene)
+  c_band2 <- subtract_shadow((cropping(band2, "utm33")), dhmAustria, scene)
+  c_band3 <- subtract_shadow((cropping(band3, "utm33")), dhmAustria, scene)
+  c_band4 <- subtract_shadow((cropping(band4, "utm33")), dhmAustria, scene)
+  c_band5 <- subtract_shadow((cropping(band5, "utm33")), dhmAustria, scene)
+  c_band10 <- subtract_shadow((cropping(band10, "utm33")), dhmAustria, scene)
   
   # calculating the ndvi 
   ndvi <- ((c_band5-c_band4)/(c_band5+c_band4))
