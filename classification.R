@@ -5,11 +5,12 @@ library(raster)
 library(caret)
 library(mapview)
 library(sf)
+library(rgdal)
 
 source(paste(getwd(),"/preparation.R",sep=""))
 
 # customize the name of the landsat data folder e.g. LC08_L1TP_193027_20190827_20190903_01_T1
-data_folder <- ("#TODO")
+data_folder <- ("LC08_L1TP_192027_20160827_20170321_01_T1")
 
 landsat <- band_stack(data_folder)
 
@@ -89,14 +90,27 @@ classify <- function(scene) {
 # final result of classification 
 classified <- classify(data_folder)
 
-# classified <- stack(paste(getwd(),"/data/",data_folder,"/classified.tif",sep=""))
+# crop the classified raster by a shapefile to focus on the Hintertux Glacier 
+HintertuxGlacierExtent <- readOGR("data/HintertuxGlacierExtent.shp")
 
-spplot(classified,col.regions=c("black","darkgreen","green","gray", "blue","white"), maxpixels=1000000)
+classified_crop <- crop(classified, HintertuxGlacierExtent)
+
+spplot(classified_crop,col.regions=c("black","darkgreen","green","gray", "blue","white"), maxpixels=1000000)
 
 # pixels used for different classes 
-pixels <- freq(classified)
-pixels
+classified_crop@data@attributes
+pixels <- freq(classified_crop)
 
-# area in square meters which is signed concerning the class ice 
-ice_area <- as.numeric(pixels[3,2])*900
+# area in square meters which is signed concerning the class ice and snow (1 pixel -> 30m*30m)
+ice_area <- as.numeric(pixels[3,2] + pixels[5,2])*900
 ice_area
+
+
+
+
+
+
+
+
+
+

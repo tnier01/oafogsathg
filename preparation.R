@@ -3,9 +3,6 @@ library(readr)
 library(raster)
 library(satellite)
 
-# setting the path were all files were saved 
-#setwd("...")
-
 ######## functions ######## 
 #1# function for cropping an image with a given extent 
 cropping <- function(image, coordinateSystem) {
@@ -34,11 +31,8 @@ cropping <- function(image, coordinateSystem) {
 
 # preperation of the elevation model 
 dhmAustria <- raster("data/DEM_geschnitten.tif")
-extent2 <- as(extent(11, 12, 46.5, 47.5), 'SpatialPolygons')
-crs(extent2) <- crs(dhmAustria)
-dhmAustriaCrop <- crop(dhmAustria, extent2)
 
-subtract_shadow <- function(band, dhmCropped, scene) {
+subtract_shadow <- function(band, dhmAustria, scene) {
   
   # extracting the sun_azimuth and the sun_elevation form a metadata-file of the landsat data 
   MTL <- read_file(paste("data/",scene,"/",scene,"_MTL.txt",sep = ""))
@@ -48,9 +42,9 @@ subtract_shadow <- function(band, dhmCropped, scene) {
   elevation <- as.numeric(substr(MTL, unlist(azimuth_index)+15, unlist(azimuth_index)+21))
   
   # slope is needed for hillshade() and calculate by terrain()
-  slope <- terrain(dhmCropped, opt="slope", unit="tangent", neighbors=8)
+  slope <- terrain(dhmAustria, opt="slope", unit="tangent", neighbors=8)
   # aspect is needed for hillshade() and calculate by terrain()
-  aspect <- terrain(dhmCropped, opt="aspect", unit="degrees", neighbors=8)
+  aspect <- terrain(dhmAustria, opt="aspect", unit="degrees", neighbors=8)
   # calculate hillshade (hillSahde is needed for calcTopoCorr), use the MTL.txt file with the values SUN_AZIMUTH = 141.92991720 and SUN_ELEVATION = 61.77340472
   hillShade <- hillShade(slope, aspect, angle=elevation, direction=azimuth, normalize=FALSE)
   # there is a need to bring both datasets on the same projection 
@@ -92,11 +86,11 @@ band_stack <- function(scene) {
   c_band5 <- (cropping(band5, "utm33"))
   c_band10 <- (cropping(band10, "utm33"))
   
-#  c_band2 <- subtract_shadow((cropping(band2, "utm33")), dhmAustriaCrop, scene)
-#  c_band3 <- subtract_shadow((cropping(band3, "utm33")), dhmAustriaCrop, scene)
-#  c_band4 <- subtract_shadow((cropping(band4, "utm33")), dhmAustriaCrop, scene)
-#  c_band5 <- subtract_shadow((cropping(band5, "utm33")), dhmAustriaCrop, scene)
-#  c_band10 <- subtract_shadow((cropping(band10, "utm33")), dhmAustriaCrop, scene)
+#  c_band2 <- subtract_shadow((cropping(band2, "utm33")), dhmAustria, scene)
+#  c_band3 <- subtract_shadow((cropping(band3, "utm33")), dhmAustria, scene)
+#  c_band4 <- subtract_shadow((cropping(band4, "utm33")), dhmAustria, scene)
+#  c_band5 <- subtract_shadow((cropping(band5, "utm33")), dhmAustria, scene)
+#  c_band10 <- subtract_shadow((cropping(band10, "utm33")), dhmAustria, scene)
   
   # calculating the ndvi 
   ndvi <- ((c_band5-c_band4)/(c_band5+c_band4))
