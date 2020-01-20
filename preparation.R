@@ -31,7 +31,11 @@ cropping <- function(image, coordinateSystem) {
 
 # preperation of the elevation model 
 dhmAustria <- raster("data/DEM_geschnitten.tif")
-
+# scene <- "LC08_L1TP_192027_20130904_20170502_01_T1"
+# band <- raster(paste("data/",scene,"/",scene,"_B2.tif", sep = ""))
+# band <- crop(band, dhmAustria)
+# there is a need to resample, because the two datasets have different bounding boxes 
+  
 subtract_shadow <- function(band, dhmAustria, scene) {
   
   # extracting the sun_azimuth and the sun_elevation form a metadata-file of the landsat data 
@@ -39,20 +43,21 @@ subtract_shadow <- function(band, dhmAustria, scene) {
   azimuth_index <- gregexpr('SUN_AZIMUTH', MTL)
   azimuth <- as.numeric(substr(MTL, unlist(azimuth_index)+14, unlist(azimuth_index)+20))
   elevation_index <-gregexpr('SUN_ELEVATION', MTL)
-  elevation <- as.numeric(substr(MTL, unlist(azimuth_index)+15, unlist(azimuth_index)+21))
+  elevation <- as.numeric(substr(MTL, unlist(elevation_index)+15, unlist(elevation_index)+21))
   
+  # band <- crop(band, dhmAustria)
+  # there is a need to resample, because the two datasets have different bounding boxes 
+  # hillShadeResampled <- resample(hillShadeReprojected, band)
   # slope is needed for hillshade() and calculate by terrain()
-  slope <- terrain(dhmAustria, opt="slope", unit="tangent", neighbors=8)
+  slope <- terrain(dhmAustria, opt="slope", unit="radians")
   # aspect is needed for hillshade() and calculate by terrain()
-  aspect <- terrain(dhmAustria, opt="aspect", unit="degrees", neighbors=8)
+  aspect <- terrain(dhmAustria, opt="aspect", unit="radians")
   # calculate hillshade (hillSahde is needed for calcTopoCorr), use the MTL.txt file with the values SUN_AZIMUTH = 141.92991720 and SUN_ELEVATION = 61.77340472
   hillShade <- hillShade(slope, aspect, angle=elevation, direction=azimuth, normalize=FALSE)
   # there is a need to bring both datasets on the same projection 
-  hillShadeReprojected <- projectRaster(hillShade, band)
-  # there is a need to resample, because the two datasets have different bounding boxes 
-  hillShadeResampled <- resample(hillShadeReprojected, band)
+  # hillShadeReprojected <- projectRaster(hillShade, band)
   # use the resampled and reprojected hillShade to finally calculate the corrected rstack
-  bandCorrected <- calcTopoCorr(band, hillShadeResampled)
+  bandCorrected <- calcTopoCorr(band, hillShade)
   
   return(bandCorrected)
 }
@@ -80,17 +85,19 @@ band_stack <- function(scene) {
   # subtracting the shadow and cropping 
   # at the moment the function "subtract_shadow" is here not used because we are not quite sure if 
   # the subtracting of the shadow is useful 
-#  c_band2 <- (cropping(band2, "utm33"))
-#  c_band3 <- (cropping(band3, "utm33"))
-#  c_band4 <- (cropping(band4, "utm33"))
-#  c_band5 <- (cropping(band5, "utm33"))
-#  c_band10 <- (cropping(band10, "utm33"))
+  c_band2 <- (cropping(band2, "utm33"))
+  c_band3 <- (cropping(band3, "utm33"))
+  c_band4 <- (cropping(band4, "utm33"))
+  c_band5 <- (cropping(band5, "utm33"))
+  c_band10 <- (cropping(band10, "utm33"))
   
-  c_band2 <- subtract_shadow((cropping(band2, "utm33")), dhmAustria, scene)
-  c_band3 <- subtract_shadow((cropping(band3, "utm33")), dhmAustria, scene)
-  c_band4 <- subtract_shadow((cropping(band4, "utm33")), dhmAustria, scene)
-  c_band5 <- subtract_shadow((cropping(band5, "utm33")), dhmAustria, scene)
-  c_band10 <- subtract_shadow((cropping(band10, "utm33")), dhmAustria, scene)
+  dhmAustriaResampled <- resample(dhmAustria, c_band2)
+  
+  c_band2 <- subtract_shadow(c_band2, dhmAustriaResampled, scene)
+  c_band3 <- subtract_shadow(c_band3, dhmAustriaResampled, scene)
+  c_band4 <- subtract_shadow(c_band4, dhmAustriaResampled, scene)
+  c_band5 <- subtract_shadow(c_band5, dhmAustriaResampled, scene)
+  c_band10 <- subtract_shadow(c_band10, dhmAustriaResampled, scene)
   
   # calculating the ndvi 
   ndvi <- ((c_band5-c_band4)/(c_band5+c_band4))
@@ -101,7 +108,7 @@ band_stack <- function(scene) {
   layerNames <- c("band2", "band3", "band4", "band5", "NDVI", "band10")
   
   # write the final .grd file 
-  rstackCropGrid <- writeRaster(landsat_stack, filename=paste("data/",scene,"/rstackCropGrid"
+  rstackCropGrid <- writeRaster(landsat_stack, filename=paste("data/",scene,"/rstackCropGridNoShadow"
                                                               #,substr(scene,17,21)
                                                               ,sep = ""), format="raster", overwrite=TRUE) # save the corrected satellite image as tif
   #names(rstackCropGrid) <- layerNames

@@ -3,7 +3,7 @@
 ########  Loading different libarys  ######## 
 library(raster)
 library(caret)
-library(mapview)
+# library(mapview)
 library(sf)
 library(rgdal)
 
@@ -88,7 +88,7 @@ classify <- function(scene, landsat) {
   pred_valid
   #table(testDat$class,pred_valid)
   
-  classified <- writeRaster(prediction, filename = paste("data/",scene,"/classified",sep = ""), format = "GTiff", options=c("COMPRESS=NONE", "TFW=YES"), overwrite = TRUE)
+  classified <- writeRaster(prediction, filename = paste("data/",scene,"/classified_noShadow",sep = ""), format = "GTiff", options=c("COMPRESS=NONE", "TFW=YES"), overwrite = TRUE)
   
   return(classified)
 }
