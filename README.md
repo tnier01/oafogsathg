@@ -7,7 +7,8 @@
 1. download the landsat data by using the earthexplorer (https://earthexplorer.usgs.gov/) (optional: use the "downloadLandsatData.R" to downlad the landsat data, you have to customize several things like username and archivelink in the script. Besides there are not loaded the thermal bands, so you have to customize the "preparation.R"-file because a few bands are missing. If you download the landsat data from the hompage earthexplorer, you do not need the "downloadLandsatData.R" file)
 * make sure that your are downloading "Landsat 8 OLI/TIRS C1 Level-1" and not "Landsat 8 OlI/TIRS C1 Level-2" because otherwise there will be propably problems because you can not use the thermal bands 
 * make sure that you download "T1" and not "T2" data, you can control that by the ending of the name of your downloaded data 
-* suggestion for Hintertux glacier without clouds: LC08_L1TP_193027_20190827_20190903_01_T1, LC08_L1TP_192027_20160827_20170321_01_T1,  	LC08_L1TP_192027_20130904_20170502_01_T1
+* suggestion for Hintertux glacier without clouds: (LC08_L1TP_193027_20190827_20190903_01_T1, LC08_L1TP_192027_20160827_20170321_01_T1,  	LC08_L1TP_192027_20130904_20170502_01_T1)
+LC08_L1TP_192027_20170830_20170914_01_T1, LC08_L1TP_193027_20150901_20170404_01_T1, LC08_L1TP_192027_20130904_20170502_01_T1
 2. create in the oafogsathg-directory a new directory called "data"
 3. After unzipping the downloaded landsat data, save the corresponding folder in the data directory 
 * do not change the folder name of the downloaded landsat data!!!

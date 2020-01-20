@@ -30,7 +30,7 @@ cropping <- function(image, coordinateSystem) {
 # - general paper source (https://cran.r-project.org/web/packages/satellite/satellite.pdf)
 
 # preperation of the elevation model 
-dhmAustria <- raster("data/DEM_geschnitten.tif")
+dhmAustria <- raster("dataSurveyArea/DEM_geschnitten.tif")
 # scene <- "LC08_L1TP_192027_20130904_20170502_01_T1"
 # band <- raster(paste("data/",scene,"/",scene,"_B2.tif", sep = ""))
 # band <- crop(band, dhmAustria)
