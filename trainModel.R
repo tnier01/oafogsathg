@@ -1,3 +1,13 @@
+# model training based on: https://github.com/HannaMeyer/Geostat2018/tree/master/practice
+
+########  Loading different libarys  ######## 
+library(raster)
+library(sf)
+library(raster)
+library(train)
+
+######## functions ######## 
+#1# function 
 trainModel <- function(scene, landsat) {
   
   # loading the data 
@@ -57,5 +67,7 @@ trainModel <- function(scene, landsat) {
   # model validation 
   pred_valid <- predict(model,testDat)
   pred_valid
+  
   #table(testDat$class,pred_valid)
 }
+

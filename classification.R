@@ -2,14 +2,13 @@
 
 ########  Loading different libarys  ######## 
 library(raster)
-library(caret)
-library(sf)
-library(rgdal)
 
 ######## functions ######## 
 #1# function for classifing  
 classify <- function(scene, landsat) {
   
+  # for the classification a model is used which was calculated on basis of data of 27.08.2019
+  # the training of the model was performed by the trainModel.R-script 
   model <- readRDS("dataSurveyArea/model.Rds")
   
   # model prediction 
