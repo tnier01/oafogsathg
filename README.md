@@ -12,16 +12,12 @@ LC08_L1TP_192027_20170830_20170914_01_T1, LC08_L1TP_193027_20150901_20170404_01_
 2. create in the oafogsathg-directory a new directory called "data"
 3. After unzipping the downloaded landsat data, save the corresponding folder in the data directory 
 * do not change the folder name of the downloaded landsat data!!!
-4. for each downloaded landsat dataset you have to run the "analysis.R"-script individually 
-* corresponding you have to change the name of the current landsat data folder in line 12, a further hint is in the script 
-5. Check at the beginning of all scripts, if all librarys needed are installed, if not install them 
-6. start the analysis.R script, but interrupt when you see the following note 
-*###############################
-###! create training sites !###
-###############################
-* now it is time to create training sites in QGIS (see further instructions below)
-7. Excecute the final lines in the "analysis.R"-file (area_calculation)
-TODO
+4. Check at the beginning of all scripts, if all librarys needed are installed, if not install them 
+5. Excecute the "analysis.R"-file
+* for each downloaded landsat dataset you have to run the "analysis.R"-script individually. Corresponding you have to change the name of the current landsat data folder in line 8, a further hint is in the script
+* Save the year and value for each year you like to use for prediction and input them in 
+the prediction.R-script 
+* TODO prediction ... 
 
 ## create training sites in QGIS (click instructions)
 - used QGIS3.8
