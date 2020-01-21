@@ -2,10 +2,10 @@
 
 ########  Loading different libarys  ######## 
 library(raster)
-library(caret)
+# library(caret)
 # library(mapview)
-library(sf)
-library(rgdal)
+# library(sf)
+# library(rgdal)
 
 # source(paste(getwd(),"/preparation.R",sep=""))
 
@@ -29,13 +29,13 @@ library(rgdal)
 #1# function for classifing  
 classify <- function(scene, landsat) {
   
-  model <- readRDS("dataSurveyArea/model.Rds")
+  model <- readRDS("dataSurveyArea/model_20190827.Rds")
   
   # model prediction 
   ## model is applied on the full raster stack using the predict function from the raster package
   prediction <- predict(landsat,model)
   
-  classified <- writeRaster(prediction, filename = paste("data/",scene,"/classifiedNoShadow",sep = ""), format = "GTiff", options=c("COMPRESS=NONE", "TFW=YES"), overwrite = TRUE)
+  classified <- writeRaster(prediction, filename = paste("data/",scene,"/classifiedNoShadow_model2019",sep = ""), format = "GTiff", options=c("COMPRESS=NONE", "TFW=YES"), overwrite = TRUE)
   
   return(classified)
 }

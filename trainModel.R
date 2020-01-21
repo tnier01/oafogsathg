@@ -1,10 +1,14 @@
+scene <- "LC08_L1TP_193027_20190827_20190903_01_T1"
+
+landsat <- stack("data/LC08_L1TP_193027_20190827_20190903_01_T1/rstackCropGridNoShadow.grd")
+
 trainModel <- function(scene, landsat) {
   
   # loading the data 
   ## landsat data prepared in preparation.R
   landsat <- landsat 
   ## shapefile of the training site prepared in QGIS
-  training <- read_sf(paste("data/",scene,"/training_sites_2.shp",sep = "")) 
+  training <- read_sf(paste("data/",scene,"/training_sites.shp",sep = "")) 
   
   # viewRGB(landsat, r = 3, g = 2, b = 1, map.types = "Esri.WorldImagery", maxpixels = 100000)+mapview(training)
   
@@ -50,7 +54,7 @@ trainModel <- function(scene, landsat) {
   model <- train(trainDat[,predictors],trainDat[,response],method="rf",
                  trControl=trainControl(method="cv"),importance=TRUE)
   
-  saveRDS(model, file="dataSurveyArea/model.Rds", overwrite=TRUE)
+  saveRDS(model, file="dataSurveyArea/model.Rds")
   
   return(model)
   
@@ -59,3 +63,5 @@ trainModel <- function(scene, landsat) {
   pred_valid
   #table(testDat$class,pred_valid)
 }
+
+trainModel(data_folder, landsat)
