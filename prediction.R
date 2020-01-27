@@ -17,21 +17,21 @@ linearModel <- lm(y19~x19)
 prediction <- predict(linearModel, newdata)
 
 # plot of past course + prediction 
-plot(c(x19,2019, 2021,2023,2025,2060, 2065), c(y19,prediction), type="l",xlab="years",ylab="area of Hintertux glacier in hectare", main="past development and prediction of the Hintertux glacier (2013-2065)")
+plot(c(x19,2019, 2021,2023,2025,2060, 2065), c(y19,prediction), type="l",xlab="years",ylab="area of Hintertux glacier in hectare", main="past development and prediction of the Hintertux glacier (2013-2065) - linear model")
 points(x19,y19,col="red")
 abline(h=0, col="red")
 points(2060.766, 0, col="blue")
-text(x=2063, y=35, labels="2061", col="blue", cex= 0.7)
+text(x=2063, y=35, labels="2061", col="blue", cex= 1)
 
 # plot of past course 
 plot(x19, y19, type="l",xlab="years",ylab="area of Hintertux glacier in hectare", main="past development of the Hintertux glacier (2013-2019)" )
 points(x19,y19,col="red")
 
 # plot of prediction 
-plot(c(2019, 2021, 2023, 2025, 2060, 2065), prediction, type="l",xlab="years",ylab="area of Hintertux glacier in hectare", main="prediction of Hintertux glacier development (2019-2065)" )
+plot(c(2019, 2021, 2023, 2025, 2060, 2065), prediction, type="l",xlab="years",ylab="area of Hintertux glacier in hectare", main="prediction of Hintertux glacier development (2019-2065) - linear model" )
 abline(h=0, col="red")
 points(2060.766, 0, col="blue")
-text(x=2063, y=35, labels="2061", col="blue", cex= 0.7)
+text(x=2063, y=35, labels="2061", col="blue", cex= 1.0)
 
 
 ##### prediction on logarithmic model 
@@ -54,7 +54,7 @@ plot(newx, logarithmicFunction(newx), type="l", ylab="area of Hintertux glacier 
 points(x,y,col="red")
 abline(h=0, col="red")
 points(33.79766, 0, col="blue")
-text(x=34.7, y=50, labels="2034", col="blue", cex= 0.7)
+text(x=34.7, y=50, labels="2034", col="blue", cex= 1)
  
 
 
