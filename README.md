@@ -5,7 +5,7 @@
 
 ## getting Started
 1. download the landsat data by using the earthexplorer (https://earthexplorer.usgs.gov/) (optional: use the "downloadLandsatData.R" to downlad the landsat data, you have to customize several things like username and archivelink in the script. Besides there are not loaded the thermal bands, so you have to customize the "preparation.R"-file because a few bands are missing. If you download the landsat data from the hompage earthexplorer, you do not need the "downloadLandsatData.R" file)
-* make sure that your are downloading "Landsat 8 OLI/TIRS C1 Level-1" and not "Landsat 8 OlI/TIRS C1 Level-2" because otherwise there will be propably problems because you can not use the thermal bands 
+* make sure that your are downloading "Landsat 8 OLI/TIRS C1 Level-1" and not "Landsat 8 OlI/TIRS C1 Level-2" because otherwise there will be propably problems because you can not use the thermal bands
 * make sure that you download "T1" and not "T2" data, you can control that by the ending of the name of your downloaded data 
 * suggestion for Hintertux glacier without clouds: (LC08_L1TP_193027_20190827_20190903_01_T1, LC08_L1TP_192027_20160827_20170321_01_T1,  	LC08_L1TP_192027_20130904_20170502_01_T1)
 LC08_L1TP_192027_20170830_20170914_01_T1, LC08_L1TP_193027_20150901_20170404_01_T1, LC08_L1TP_192027_20130904_20170502_01_T1
@@ -17,7 +17,9 @@ LC08_L1TP_192027_20170830_20170914_01_T1, LC08_L1TP_193027_20150901_20170404_01_
 * for each downloaded landsat dataset you have to run the "analysis.R"-script individually. Corresponding you have to change the name of the current landsat data folder in line 8, a further hint is in the script
 * Save the year and value for each year you like to use for prediction and input them in 
 the prediction.R-script 
-* TODO prediction ... 
+6. The prediction.R-script already contains values for 2019 and partly 2016 which we have calculated with the method described above
+* Either you adapt the given data by your own collected data or use our collected data 
+* You can simply run the script by yourself and see the results in different plots  
 
 ## create training sites in QGIS (click instructions)
 - used QGIS3.8
@@ -47,6 +49,6 @@ the prediction.R-script
 - now proceed the process in the "analysis.R"-file 
 
 ## authors
-* nier
-* baec
-* sten
+* [nier](https://github.com/tnier01/)
+* [sten](https://github.com/jsten07)
+* [baec](https://github.com/Leverkusen)
