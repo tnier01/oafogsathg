@@ -1,6 +1,6 @@
 #### A project as part of the Study project "Remote sensing based analysis of environmental change" in the winter term 2019/ 2020 at the [Institute for Geoinformatics](https://www.ifgi.de) at the university of Muenster.
 
-### The aim was to determine the development of the ice-area at the Hintertux Glacier. This way  our someway provocative research question was: "Is the Hintertux Glacier shrinking?". 
+##### The aim was to determine the development of the ice-area at the Hintertux Glacier. This way  our someway provocative research question was: "Is the Hintertux Glacier shrinking?". 
 
 ## GitHub Repository
 [oafogsathg](https://github.com/tnier01/oafogsathg)
