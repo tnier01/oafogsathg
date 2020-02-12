@@ -1,4 +1,11 @@
-##### prediction on linear model 
+######## prediction script ########
+# This is the script to visualize the results of the calculation and use it for predictions. 
+# The script already contains values for 2019 and partly 2016 which we have calculated. 
+# Either you adapt the given data by your own collected data or use our collected data. 
+# You can simply run and adapt the script by yourself and see the results in different plots. 
+
+
+######## prediction on linear model ######## 
 # x and y values for prediction on classification model of 2016
 x16 <- c(2013, 2015, 2016, 2017, 2019) # years 
 y16 <- c(980.0100, 759.8700, 703.8900, 644.0400, 723.4200) # area in hectare 
@@ -34,7 +41,7 @@ points(2060.766, 0, col="blue")
 text(x=2063, y=35, labels="2061", col="blue", cex= 1.0)
 
 
-##### prediction on logarithmic model 
+######## prediction on logarithmic model ######## 
 # values we have calculated on classification model of 2019
 x <- c(13, 16, 19) # years 
 y <- c(828.4500, 799.0200, 723.4200) # area in hectare 

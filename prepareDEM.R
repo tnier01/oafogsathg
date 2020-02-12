@@ -1,5 +1,13 @@
+######## DEM preperation script ########
+# This is an optional script, which is not directly needed for the main process. It was used by the developers 
+# to prepare the digital elevation model concerning extent and projection- 
+
+
+######## Loading different libarys ######## 
 library(raster)
 
+
+######## preperation ######## 
 # DEM files downloaded from 
 # https://opendem.info/OpenDemEU/getData.jsp?xmin=4384542.1862237835&xmax=4497832.47750067&ymin=2609541.8919157316&ymax=2710518.0210973043
 
@@ -7,7 +15,6 @@ dem1 <- raster("C:/Users/janst/Downloads/N260E440/N260E440/N260E440.tif")
 dem2 <- raster("C:/Users/janst/Downloads/N265E440/N265E440/N265E440.tif")
 dem3 <- raster("C:/Users/janst/Downloads/N260E445/N260E445/N260E445.tif")
 dem4 <- raster("C:/Users/janst/Downloads/N265E445/N265E445/N265E445.tif")
-
 
 layer <- list(dem1, dem2, dem3, dem4)
 

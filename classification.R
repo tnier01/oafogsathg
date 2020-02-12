@@ -1,8 +1,12 @@
+######## classification script ########
+# This script is used for the classification and the function area_calculation gets called by the "analysis.R"-script. 
 # classification based on: https://github.com/HannaMeyer/Geostat2018/tree/master/practice
 
-########  Loading different libarys  ######## 
+
+######## Loading different libarys ######## 
 library(raster)
 library(rgdal) 
+
 
 ######## functions ######## 
 #1# function for classifing  
@@ -14,7 +18,7 @@ classify <- function(scene, landsat) {
 
   
   # model prediction 
-  ## model is applied on the full raster stack using the predict function from the raster package
+  # model is applied on the full raster stack using the predict function from the raster package
   prediction <- predict(landsat,model)
   
   classified <- writeRaster(prediction, filename = paste("data/",scene,"/classifiedNoShadow_model2019",sep = ""), format = "GTiff", options=c("COMPRESS=NONE", "TFW=YES"), overwrite = TRUE)
@@ -45,7 +49,7 @@ area_calculation <- function(scene, landsat) {
   return(ice_area)
 }
 
-#3# function 
+#3# function for calculation the ice (and snow) area from the classification 
 getAreaFromClassified <- function(scene) {
   classified <- raster(paste("data/",scene,"/classifiedNoShadow.tif",sep=""))
   

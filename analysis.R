@@ -1,10 +1,14 @@
-######## final analysis script to be executed ########
+######## analysis script ########
+# This is the final analysis script to be executed by the user. 
+# You find further information concerning the process in the README.md. 
 
-######## loading of some further files the script uses ########
+
+######## loading of some further files the "analysis.R"-script uses ########
 source(paste(getwd(),"/preparation.R",sep=""))
 source(paste(getwd(),"/classification.R",sep=""))
 
 # customize the name of the landsat data folder e.g. LC08_L1TP_193027_20190827_20190903_01_T1
+# use the landsat data folder instead of your_landsat_data_folder, but do not delete the ""
 data_folder <- ("your_landsat_data_folder")
 
 landsat <- stack(paste("data/",data_folder,"/rstackCropGridNoShadow.grd",sep=""))
@@ -26,6 +30,7 @@ calculateAreaOfHintertuxGlacier <- function(data_folder) {
   HintertuxGlacierArea <- area_calculation(data_folder, landsat)
   return(HintertuxGlacierArea)
 }
+
 
 ######## result ########
 # the result HintertuxGlacierArea is the area in square meters at the Hintertux Glacier which

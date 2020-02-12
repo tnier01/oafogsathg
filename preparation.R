@@ -1,7 +1,13 @@
-########  Loading different libarys  ######## 
+######## preperation script ########
+# This is the script for preperation of the data including shadow removement, projection fitting, cropping, calculating NDVI and 
+# bringing the bands together to an stack. The function band_stack gets called by the "analysis.R"-script. 
+
+
+######## Loading different libarys ######## 
 library(readr)
 library(raster)
 library(satellite)
+
 
 ######## functions ######## 
 #1# function for cropping an image with a given extent 
