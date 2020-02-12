@@ -2,7 +2,7 @@
 
 ########  Loading different libarys  ######## 
 library(raster)
-
+library(rgdal) 
 
 ######## functions ######## 
 #1# function for classifing  

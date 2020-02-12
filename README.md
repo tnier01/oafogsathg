@@ -19,7 +19,9 @@ LC08_L1TP_192027_20170830_20170914_01_T1, LC08_L1TP_193027_20150901_20170404_01_
 the prediction.R-script 
 6. The prediction.R-script already contains values for 2019 and partly 2016 which we have calculated with the method described above
 * Either you adapt the given data by your own collected data or use our collected data 
-* You can simply run the script by yourself and see the results in different plots  
+* You can simply run the script by yourself and see the results in different plots 
+7. further hints 
+* For the classification we used a precalculated model. The model is saved under dataSurveyArea/model_20190827.Rds. This model is calculated on the data of the 27.08.2019. You can calculate your own model by the "trainModel.R"-script and use it instead of our precalcualted script. For the process in the "trainModel.R"-script you need some training sites data, which we also provide for the default model. If you like to calculate them on your own, the process is described below. 
 
 ## create training sites in QGIS (click instructions)
 - used QGIS3.8
