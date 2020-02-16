@@ -7,10 +7,10 @@
 # model training based on: https://github.com/HannaMeyer/Geostat2018/tree/master/practice
 
 
-########  Loading different libarys  ######## 
+########  Loading different libarys  #t####### 
 library(sf)
 library(raster)
-library(train)
+library(caret)
 
 
 ######## functions ######## 
@@ -65,7 +65,7 @@ trainModel <- function(scene, landsat) {
   response <- "class"
   
   # train the model 
-  ## we have to decide which methode we want to use, there are a lot of different possibilities 
+  ## For the training the random forest model was used 
   ## https://www.rdocumentation.org/packages/caret/versions/4.47/topics/train 
   set.seed(100)
   model <- train(trainDat[,predictors],trainDat[,response],method="rf",
