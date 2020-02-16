@@ -8,7 +8,6 @@
 
 
 ########  Loading different libarys  ######## 
-library(raster)
 library(sf)
 library(raster)
 library(train)
