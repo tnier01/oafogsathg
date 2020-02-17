@@ -1,21 +1,14 @@
-######## prediction script ########
-# This is the script to visualize the results of the calculation and use it for predictions. 
-# The script already contains values for 2019 and partly 2016 which we have calculated. 
-# Either you adapt the given data by your own collected data or use our collected data. 
-# You can simply run and adapt the script by yourself and see the results in different plots. 
-
-
-######## prediction on linear model ######## 
+##### prediction on linear model 
 # x and y values for prediction on classification model of 2016
 x16 <- c(2013, 2015, 2016, 2017, 2019) # years 
 y16 <- c(980.0100, 759.8700, 703.8900, 644.0400, 723.4200) # area in hectare 
 
 # x and y values for prediction on classification model of 2019
-x19 <- c(2013, 2016, 2019) # years 
+x19 <- c(13, 16, 19) # years 
 y19 <- c(828.4500, 799.0200, 723.4200) # area in hectare 
 
 # timestamp for prediction 
-newdata <- data.frame("x19"=c(2019, 2021, 2023, 2025, 2060, 2065))
+newdata <- data.frame("x19"=c(19, 21, 65))
 
 # linear model 
 linearModel <- lm(y19~x19)
@@ -24,14 +17,14 @@ linearModel <- lm(y19~x19)
 prediction <- predict(linearModel, newdata)
 
 # plot of past course + prediction 
-plot(c(x19,2019, 2021,2023,2025,2060, 2065), c(y19,prediction), type="l",xlab="years",ylab="area of Hintertux glacier in hectare", main="past development and prediction of the Hintertux glacier (2013-2065) - linear model")
+plot(c(x19,19, 21,65), c(y19,prediction), type="l",xlab="years in [2000-2100]",ylab="area of Hintertux glacier in hectare", main="past development and prediction of the Hintertux glacier (2013-2065) - linear model")
 points(x19,y19,col="red")
 abline(h=0, col="red")
-points(2060.766, 0, col="blue")
-text(x=2063, y=35, labels="2061", col="blue", cex= 1)
+points(60.766, 0, col="blue")
+text(x=63, y=35, labels="2061", col="blue", cex= 1)
 
 # plot of past course 
-plot(x19, y19, type="l",xlab="years",ylab="area of Hintertux glacier in hectare", main="past development of the Hintertux glacier (2013-2019)" )
+plot(x19, y19, type="l",xlab="years in [2000-2100]",ylab="area of Hintertux glacier in hectare", main="past development of the Hintertux glacier (2013-2019)" )
 points(x19,y19,col="red")
 
 # plot of prediction 
@@ -41,7 +34,7 @@ points(2060.766, 0, col="blue")
 text(x=2063, y=35, labels="2061", col="blue", cex= 1.0)
 
 
-######## prediction on logarithmic model ######## 
+##### prediction on logarithmic model 
 # values we have calculated on classification model of 2019
 x <- c(13, 16, 19) # years 
 y <- c(828.4500, 799.0200, 723.4200) # area in hectare 
