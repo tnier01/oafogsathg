@@ -38,6 +38,3 @@ calculateAreaOfHintertuxGlacier <- function(data_folder) {
 HintertuxGlacierArea <- calculateAreaOfHintertuxGlacier(data_folder)
 HintertuxGlacierArea
 
-
-iceAndSnowArea <- getAreaFromClassified(data_folder)
-iceAndSnowArea

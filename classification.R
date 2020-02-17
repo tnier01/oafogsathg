@@ -49,28 +49,6 @@ area_calculation <- function(scene, landsat) {
   return(ice_area)
 }
 
-#3# function for calculation the ice (and snow) area from the classification 
-getAreaFromClassified <- function(scene) {
-  classified <- raster(paste("data/",scene,"/classifiedNoShadow_model2019.tif",sep=""))
-  
-  HintertuxGlacierExtent <- readOGR("dataSurveyArea/HintertuxGlacierExtent.shp")
-  
-  classified_crop <- crop(classified, HintertuxGlacierExtent)
-  
-  spplot(classified_crop,col.regions=c("black","darkgreen","green","gray", "blue","white"), maxpixels=1000000)
-  
-  # pixels used for different classes 
-  classified_crop@data@attributes
-  pixels <- freq(classified_crop)
-  
-  # area in square meters which is signed concerning the class ice and snow (1 pixel -> 30m*30m)
-  ice_area <- as.numeric(pixels[3,2] + pixels[5,2])*900
-  
-  return(ice_area)
-}
-
-
-
 
 
 
