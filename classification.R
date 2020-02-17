@@ -51,7 +51,7 @@ area_calculation <- function(scene, landsat) {
 
 #3# function for calculation the ice (and snow) area from the classification 
 getAreaFromClassified <- function(scene) {
-  classified <- raster(paste("data/",scene,"/classifiedNoShadow.tif",sep=""))
+  classified <- raster(paste("data/",scene,"/classifiedNoShadow_model2019.tif",sep=""))
   
   HintertuxGlacierExtent <- readOGR("dataSurveyArea/HintertuxGlacierExtent.shp")
   
