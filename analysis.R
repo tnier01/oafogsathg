@@ -37,4 +37,3 @@ calculateAreaOfHintertuxGlacier <- function(data_folder) {
 # is covered by snow 
 HintertuxGlacierArea <- calculateAreaOfHintertuxGlacier(data_folder)
 HintertuxGlacierArea
-
