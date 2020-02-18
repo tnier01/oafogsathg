@@ -47,8 +47,4 @@ getLandsat_preview(record = records_filtered2, show_aoi=TRUE, on_map = FALSE)
 
 # Download some datasets to your archive directory
 datasets <- getLandsat_data(records = records_filtered2)
-files <- getLandsat_data(espa_order = "espa-t_nier01@uni-muenster.de-12162019-092527-958") # if you interrupt the function, you can download the data later after it is recieved from ESPA
-# plotting the aerosol band 
-aerosol <- raster("/Users/tom/Desktop/Bsc.Geoinformatik/5.Semester/RemoteSensingBasedAnalysisOfEnvironmentalChange/data/LC08_L1TP_192027_20190921_20190926_01_T1/LC08_L1TP_192027_20190921_20190926_01_T1_B1.TIF")
-aerosol 
-plot(aerosol, main="Hintertux 2019.09.21")
+files <- getLandsat_data(espa_order = "your_espa_oder_link") # if you interrupt the function, you can download the data later after it is recieved from ESPA

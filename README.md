@@ -17,10 +17,9 @@ LC08_L1TP_192027_20170830_20170914_01_T1, LC08_L1TP_193027_20150901_20170404_01_
 * do not change the folder name of the downloaded landsat data!!!
 5. Check at the beginning of all scripts, if all librarys needed are installed, if not install them 
 6. Excecute the "analysis.R"-file
-* for each downloaded landsat dataset you have to run the "analysis.R"-script individually. Corresponding you have to change the name of the current landsat data folder in line 8, a further hint is in the script
-* Save the year and value for each year you like to use for prediction and input them in 
-the prediction.R-script 
-7. The prediction.R-script already contains values for 2019 and partly 2016 which we have calculated with the method described above
+* for each downloaded landsat dataset you have to run the "analysis.R"-script individually. Corresponding you have to change the name of the current landsat data folder in line 12, a further hint is in the script
+* Save the year and value (result of the function "HintertuxGlacierArea") for each year you like to use for prediction and input them in the prediction.R-script 
+7. The prediction.R-script already contains values for 2019 and  2016 which we have calculated with the method described above
 * Either you adapt the given data by your own collected data or use our collected data 
 * You can simply run the script by yourself and see the results in different plots 
 8. further hints 
