@@ -1,4 +1,4 @@
-#### A project as part of the Study project "Remote sensing based analysis of environmental change" in the winter term 2019/ 2020 at the [Institute for Geoinformatics](https://www.ifgi.de) at the university of Muenster.
+#### A project as part of the Study project "[Remote sensing based analysis of environmental change](https://studium.uni-muenster.de/qisserver/rds?state=verpublish&status=init&vmfile=no&publishid=303148&moduleCall=webInfo&publishConfFile=webInfo&publishSubDir=veranstaltung)" in the winter term 2019/ 2020 at the [Institute for Geoinformatics](https://www.ifgi.de) at the [university of Muenster](https://www.uni-muenster.de/en/).
 
 ##### The aim was to determine the development of the ice-area at the Hintertux Glacier. This way  our someway provocative research question was: "Is the Hintertux Glacier shrinking?". 
 
